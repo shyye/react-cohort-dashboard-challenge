@@ -1,7 +1,8 @@
+import "./posts.css";
 function PostsContainer() {
     return (
         <>
-        <div>Poooost Containre</div>
+        <div className="posts-container">Poooost Containre</div>
         </>
     )
 }

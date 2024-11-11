@@ -1,3 +1,5 @@
+import "./sidebar.css";
+
 function Menu() {
   return (
     <div className="sidebar">

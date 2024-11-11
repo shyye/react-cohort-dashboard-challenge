@@ -8,13 +8,19 @@ import PostsContainer from './components/posts/PostsContainer'
 const AppContext = createContext()
 
 function App() {
+  // Dummy data for logged in user
+  const loggedInUser = {
+    firstname: 'John',
+    lastname: 'Doe',
+    initials: 'JD',
+  }
 
   return (
     <>
-      <Header />
-      <Sidebar />
-
-      <AppContext.Provider value={{}}>
+      <AppContext.Provider value={{loggedInUser}}>
+        <Header />
+        <Sidebar />
+      
         <Routes>
           <Route path="/" element={<PostsContainer />} />
         </Routes>
@@ -23,4 +29,4 @@ function App() {
   )
 }
 
-export { App }
+export { App, AppContext }
