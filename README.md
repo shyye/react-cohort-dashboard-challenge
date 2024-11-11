@@ -12,11 +12,10 @@ flowchart TD
     Components --> Sidebar(Sidebar)
     Sidebar --> Menu.jsx
     Sidebar --> MenuItem.jsx
-    Components --> Search(Search)
-    Search --> Searchbar.jsx
     Components --> Posts(Posts)
     Posts --> PostList.jsx
     Posts --> PostItem.jsx
+    Posts --> CreatePost.jsx
 ```
 
 ## Core Checklist
