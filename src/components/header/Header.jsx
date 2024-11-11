@@ -1,7 +1,15 @@
+import { Link } from "react-router-dom";
+import titleHeaderLogo from "../../assets/title-header.svg";
+
 function Header() {
   return (
     <header>
-      <h1>My Header</h1>
+      <div>
+        <link rel="stylesheet" href="" />
+        <Link to="/">
+            <img src={titleHeaderLogo} alt="title" />
+        </Link>
+      </div>
     </header>
   );
 }
