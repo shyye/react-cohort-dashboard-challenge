@@ -6,11 +6,13 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  
 
 }
 
 body {
   margin: 0 auto;
+  background-color: #F0F5FA;
 }
 
 /* .logo {

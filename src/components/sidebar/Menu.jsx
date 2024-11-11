@@ -1,9 +1,13 @@
+import MenuItem from "./MenuItem";
+import homeIcon from "../../assets/home-icon.svg";
+import profileIcon from "../../assets/profile-icon.svg";
 import "./sidebar.css";
 
 function Menu() {
   return (
     <div className="sidebar">
-      <h2>Sidebar</h2>
+      <MenuItem icon={homeIcon} title={"Home"}/>
+      <MenuItem icon={profileIcon} title={"Profile"} />
     </div>
   );
 }
