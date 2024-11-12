@@ -34,7 +34,11 @@ function PostItem({ post }) {
       <div>{comments.map((comment) => (
         <div key={comment.id} className="post-comment-wrapper">
           <ProfileCircle userInitals={comment.contactId} />
-          <div className="post-comment">{comment.content}</div>
+          <div className="post-comment">
+            <strong>Contact id: {comment.contactId} / Name</strong>
+            <br />
+            {comment.content}
+          </div>
         </div>
       ))}</div>
     </div>
