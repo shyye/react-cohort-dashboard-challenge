@@ -16,6 +16,7 @@ function App() {
     firstname: 'John',
     lastname: 'Doe',
     initials: 'JD',
+    contactId: 42
   }
 
   // Get Posts
@@ -25,6 +26,19 @@ function App() {
     setPosts(data);
   };
 
+  // On add/create, save data to api
+  const saveData = async (dataObject) => {
+    const res = await fetch("https://boolean-uk-api-server.fly.dev/shyye/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataObject),
+    });
+    const data = await res.json();
+    setPosts([...posts, data]);
+  };
+
   // Load data
   useEffect(() => {
     getData();
@@ -32,7 +46,7 @@ function App() {
 
   return (
     <>
-      <AppContext.Provider value={{loggedInUser, posts}}>
+      <AppContext.Provider value={{loggedInUser, posts, saveData}}>
         <Header />
         <Sidebar />
       

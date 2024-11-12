@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProfileCircle from "../profile-circle/ProfileCircle";
+import { AppContext } from "../../App";
 
 function PostItem({ post }) {
+  const { loggedInUser } = useContext(AppContext);
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   // Get comments for this post
   const getComments = async () => {
@@ -13,16 +16,38 @@ function PostItem({ post }) {
     setComments(data);
   };
 
+  // Submit comment
+  const submitComment = async (commentData) => {
+    commentData.preventDefault();
+    const commentDataObject = {
+        postId: post.id,
+        content: newComment,
+        contactId: loggedInUser.contactId,
+    }
+
+    const res = await fetch(
+      `https://boolean-uk-api-server.fly.dev/shyye/post/${post.id}/comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(commentDataObject),
+      }
+    );
+    const data = await res.json();
+    setComments([...comments, data]);
+  };
+
   // Load data
   useEffect(() => {
     getComments();
-    console.log(comments);
   }, []);
 
   return (
     <div className="post-card-container">
       <div className="post-header-wrapper">
-        <ProfileCircle userInitals={"Placeholder"} />
+        <ProfileCircle userInitals={"AA"} />
         <div>
           <h4>{post.contactId}</h4>
           <p>{post.title}</p>
@@ -31,16 +56,33 @@ function PostItem({ post }) {
       <div>
         <p>{post.content}</p>
       </div>
-      <div>{comments.map((comment) => (
-        <div key={comment.id} className="post-comment-wrapper">
-          <ProfileCircle userInitals={comment.contactId} />
-          <div className="post-comment">
-            <strong>Contact id: {comment.contactId} / Name</strong>
-            <br />
-            {comment.content}
+      <div>
+        {comments.map((comment) => (
+          <div key={comment.id} className="post-comment-wrapper">
+            <ProfileCircle userInitals={comment.contactId} />
+            <div className="post-comment">
+              <strong>Contact id: {comment.contactId} / Name</strong>
+              <br />
+              {comment.content}
+            </div>
           </div>
-        </div>
-      ))}</div>
+        ))}
+      </div>
+      <div>
+        <form onSubmit={submitComment}>
+        <input
+          type="text"
+          id="comment"
+          name="comment"
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="What's on your mind?"
+          value={newComment}
+        />
+          <button type="submit" className="post-button ">
+            Comment
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

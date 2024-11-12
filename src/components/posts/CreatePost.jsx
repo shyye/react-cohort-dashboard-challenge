@@ -4,12 +4,18 @@ import "./posts.css";
 import { AppContext } from "../../App";
 
 function CreatePost() {
-  const { loggedInUser } = useContext(AppContext);
+  const { loggedInUser, saveData } = useContext(AppContext);
   const [textContent, setTextContent] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+
+    const postData = {
+        title: "New Post",
+        content: textContent,
+        contactId: loggedInUser.contactId
+    };
+    saveData(postData);
   }
 
   return (
