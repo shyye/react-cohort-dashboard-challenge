@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import ProfileCircle from "../profile-circle/ProfileCircle";
 import { AppContext } from "../../App";
+import { Link } from "react-router-dom";
 
 function PostItem({ post }) {
   // Get firstname, lastname and initals from contactId
@@ -81,7 +82,9 @@ function PostItem({ post }) {
           <h4>
             {contact.firstname} {contact.lastname}
           </h4>
-          <p>{post.title}</p>
+          <Link to={`/post/${post.id}`}>
+            <p>{post.title}</p>
+          </Link>
         </div>
       </div>
       <div>

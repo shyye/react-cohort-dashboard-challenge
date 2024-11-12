@@ -4,6 +4,7 @@ import Header from './components/header/Header'
 import Sidebar from './components/sidebar/Menu'
 import { Route, Routes } from 'react-router-dom'
 import PostsContainer from './components/posts/PostsContainer'
+import PostContainerView from './components/posts/PostContainerView'
 
 const AppContext = createContext()
 
@@ -52,6 +53,7 @@ function App() {
       
         <Routes>
           <Route path="/" element={<PostsContainer />} />
+          <Route path="/post/:id" element={<PostContainerView />} />
         </Routes>
       </AppContext.Provider>
     </>
