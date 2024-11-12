@@ -1,6 +1,6 @@
 .posts-container {
-    background-color: aquamarine;
     flex-grow: 4;
+    max-width: 800px;
 }
 
 .post-card-container{
@@ -10,6 +10,28 @@
     border-radius: 5px;
     border-width: 1px;
     border-color: lightgray;
+}
+
+.post-header-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+.post-header-wrapper h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #64648c;
+}
+
+.post-header-wrapper p {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    color: #64648c;
 }
 
 /* Create Post Components */
@@ -43,5 +65,19 @@ form input {
     padding: 0.4em 3em;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.post-comment-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8em;
+    padding: .5em;
+}
+
+.post-comment {
+    background-color: #e6ebf5;
+    padding: 0.5em 1em;
+    /* margin: 0.5em 0; */
+    border-radius: 3px;
 }
 
