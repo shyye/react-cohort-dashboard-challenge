@@ -1,4 +1,4 @@
-import "./ProfileCircle.css";
+import "./profileCircle.css";
 
 function ProfileCircle({ userInitals}) {
 

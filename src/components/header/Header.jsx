@@ -3,7 +3,7 @@ import titleHeaderLogo from "../../assets/title-header.svg";
 import ProfileCircle from "../profile-circle/ProfileCircle";
 import { useContext } from "react";
 import { AppContext } from "../../App";
-import './Header.css';
+import './header.css';
 
 function Header() {
 
