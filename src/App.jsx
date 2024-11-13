@@ -17,7 +17,8 @@ function App() {
     firstname: 'John',
     lastname: 'Doe',
     initials: 'JD',
-    contactId: 42
+    contactId: 16,
+    id: 16,
   }
 
   // Get Posts

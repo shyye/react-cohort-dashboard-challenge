@@ -13,7 +13,8 @@ function CreatePost() {
     const postData = {
         title: "New Post",
         content: textContent,
-        contactId: loggedInUser.contactId
+        contactId: loggedInUser.contactId,
+        id: loggedInUser.id
     };
     saveData(postData);
   }

@@ -6,22 +6,15 @@ import { Link } from "react-router-dom";
 function PostItem({ post }) {
   // Get firstname, lastname and initals from contactId
   const [contact, setContact] = useState({});
+  const { loggedInUser } = useContext(AppContext);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   const getContact = async () => {
     const res = await fetch(
       `https://boolean-uk-api-server.fly.dev/shyye/contact/${post.contactId}`
     );
 
-    // Case for dummy data for loggedInUser (test user)
-    if (post.contactId === 42) {
-      const contactObject = {
-        firstname: "John",
-        lastname: "Doe",
-        initials: "JD",
-      };
-      setContact(contactObject);
-      return;
-    }
     const data = await res.json();
 
     const contactObject = {
@@ -32,16 +25,27 @@ function PostItem({ post }) {
     setContact(contactObject);
   };
 
-  const { loggedInUser } = useContext(AppContext);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
-
   // Get comments for this post
   const getComments = async () => {
     const res = await fetch(
       `https://boolean-uk-api-server.fly.dev/shyye/post/${post.id}/comment`
     );
     const data = await res.json();
+
+    // For each comment in data, add firstname, lastname and initials
+    for (let i = 0; i < data.length; i++) {
+      const res = await fetch(
+        `https://boolean-uk-api-server.fly.dev/shyye/contact/${data[i].contactId}`
+      );
+      const contactData = await res.json();
+
+      const contactObject = {
+        firstname: contactData.firstName,
+        lastname: contactData.lastName,
+        initials: contactData.firstName[0] + contactData.lastName[0],
+      };
+      data[i].contact = contactObject;
+    }
     setComments(data);
   };
 
@@ -52,6 +56,12 @@ function PostItem({ post }) {
       postId: post.id,
       content: newComment,
       contactId: loggedInUser.contactId,
+    };
+
+    commentDataObject.contact = {
+      firstname: loggedInUser.firstname,
+      lastname: loggedInUser.lastname,
+      initials: loggedInUser.initials,
     };
 
     const res = await fetch(
@@ -93,9 +103,11 @@ function PostItem({ post }) {
       <div>
         {comments.map((comment) => (
           <div key={comment.id} className="post-comment-wrapper">
-            <ProfileCircle userInitals={comment.contactId} />
+            <ProfileCircle userInitals={comment.contact.initials} />
             <div className="post-comment">
-              <strong>Contact id: {comment.contactId} / Name</strong>
+              <strong>
+                {comment.contact.firstname} {comment.contact.lastname}
+              </strong>
               <br />
               {comment.content}
             </div>
